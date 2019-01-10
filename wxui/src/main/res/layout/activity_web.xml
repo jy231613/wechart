@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@color/admin_color">
+        <ImageView
+            android:id="@+id/left_icon"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/common_left"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:visibility="visible"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="正在加载..."
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/right_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/common_left"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:max="100"
+        android:progress="10"
+        android:id="@+id/pb_web"
+        android:layout_below="@+id/topBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-6dp"
+        android:layout_marginBottom="-7dp"/>
+
+    <WebView
+        android:id="@+id/web"
+        android:layout_below="@+id/pb_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="-40dp"/>
+
+</RelativeLayout>

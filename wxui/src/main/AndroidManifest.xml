@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.qb.wxui" >
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
+    <application
+        android:allowBackup="false"
+        android:supportsRtl="true">
+        <!--Web页-->
+        <activity android:name="com.qb.wxui.page.WebActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

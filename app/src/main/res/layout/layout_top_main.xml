@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/leftTitle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:text="@string/app_name"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:textColor="@color/text_title"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/searchClick"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@mipmap/icon_sousuo"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/addClick"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/icon_add"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/app_name" />
+
+</LinearLayout>

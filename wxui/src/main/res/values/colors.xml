@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="admin_color">#48c8a6</color>
+    <color name="unadmin_color">#B3B3B3</color>
+
+    <color name="bg_black_dark">#D9D8DD</color>
+    <color name="bg_black_thin">#F0EFF5</color>
+
+    <color name="text_white">#FAFAFA</color>
+    <color name="text_white_dark">#C7C7C7</color>
+
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+
+    <!--refresh-->
+    <color name="Orange">#e75946</color>
+    <color name="Yellow">#f4d227</color>
+    <color name="Blue">#4674e7</color>
+    <color name="Green">#0ba62c</color>
+
+    <!--辅助文字色，用于稍微弱些的文字表现。info_tab_unselect改名为text_grey_light-->
+    <color name="text_grey_light">#A7ADBC</color>
+
+    <color name="text_red">#FC0544</color>
+    <color name="red_cff51">#ff5151</color>
+    <color name="text_green">#51FFB9</color>
+    <color name="text_grey">#5E5E6A</color>
+    <color name="text_blue">#118CDE</color>
+    <color name="text_orange">#FCAE05</color>
+
+    <color name="btn_blue">#118CDE</color>
+    <color name="blue_admin">#1E90FF</color>
+    <color name="btn_blue_pressed">#0070BB</color>
+    <color name="btn_grey_ripple">#545359</color>
+
+    <color name="label_etf_bg">#2C2C37</color>
+
+    <color name="tin_ma5">#a93d4d</color>
+    <color name="tin_ma10">#2a0cca</color>
+    <color name="tin_ma20">#cacb64</color>
+
+    <!--crop-->
+    <color name="crop_shadow_color">#4F000000</color>
+    <color name="crop_shadow_wp_color">#4F000000</color>
+    <color name="crop_wp_markers">#7FFFFFFF</color>
+
+
+    <!--wx-->
+    <color name="admin_white">#ffffff</color>
+    <color name="admin_pop_bg">#4C4C4C</color>
+
+    <color name="text_gray">#999999</color>
+    <color name="text_black">#000000</color>
+    <color name="text_title">#181818</color>
+    <color name="text_name">#353535</color>
+    <color name="text_bg">#656565</color>
+    <color name="text_link">#576B95</color>
+
+    <color name="icon_rad">#FA5151</color>
+    <color name="icon_blue">#10AEFF</color>
+    <color name="icon_green">#00C777</color>
+    <color name="icon_cyan">#53C84D</color>
+    <color name="icon_purple">#6467F0</color>
+    <color name="icon_orange">#FA9D3B</color>
+    <color name="icon_yellow">#FFC300</color>
+</resources>

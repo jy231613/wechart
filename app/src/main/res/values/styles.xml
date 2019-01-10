@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <!--透明Activity-->
+    <style name="BaseTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/no_color</item> <!-- 背景色透明度 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明,设置为false无透明效果 -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 模糊 -->
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+    </style>
+
+    <!-- Activity进出动画 -->
+    <style name="activityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/base_sige_in</item>
+        <item name="android:windowExitAnimation">@anim/base_sige_out</item>
+    </style>
+</resources>

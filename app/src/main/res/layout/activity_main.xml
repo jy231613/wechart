@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.qb.wechat.widget.MainTopBar
+        android:id="@+id/mainTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp" />
+
+    <com.qb.wxbase.widget.viewpage.NoScrollViewPager
+        android:id="@+id/scrollViewPage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/text_gray"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/click1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/wx1"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@mipmap/icon_msg"/>
+            <TextView
+                android:id="@+id/tx1"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="嗡嗡"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/click2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/wx2"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@mipmap/icon_userkist_no"/>
+            <TextView
+                android:id="@+id/tx2"
+                android:textColor="@color/text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="通讯录"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/click3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/wx3"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@mipmap/icon_look_no"/>
+            <TextView
+                android:id="@+id/tx3"
+                android:textColor="@color/text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="发现"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/click4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/wx4"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@mipmap/icon_my_no"/>
+            <TextView
+                android:id="@+id/tx4"
+                android:textColor="@color/text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="我"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
