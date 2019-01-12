@@ -18,9 +18,9 @@
 
         <!--主页-->
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/BlackTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,8 +29,28 @@
         </activity>
 
         <!--Im实时聊天页-->
-        <activity android:name=".ui.activity.ImActivity"
+        <activity
+            android:name=".ui.activity.ImActivity"
+            android:theme="@style/BaseTheme"
             android:screenOrientation="portrait"/>
-    </application>
 
+        <!--主页-->
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--登录页面-->
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--用户信息详情页面-->
+        <activity
+            android:theme="@style/BaseTheme"
+            android:name=".ui.activity.UserInfoActivity"
+            android:screenOrientation="portrait"/>
+
+    </application>
 </manifest>

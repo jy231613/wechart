@@ -1,5 +1,6 @@
 package com.qb.wechat.ui.fragment.main;
 
+import android.app.Dialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.qb.wxbase.create.foxbind.Find;
 import com.qb.wxbase.create.foxbus.FxBus;
 import com.qb.wxbase.create.foxbus.Improved.FxEventBean;
 import com.qb.wxbase.create.speasy.Sp;
+import com.qb.wxui.dialog.WaChatDialog;
+import com.qb.wxui.dialog.util.MsgDialogClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ import java.util.List;
  * Create by Administrator from AndroidStudio3.2
  * ================================================
  */
-public class Weng2Fragment extends BaseFragment implements View.OnClickListener {
+public class Weng2Fragment extends BaseFragment implements View.OnClickListener, View.OnLongClickListener {
     @Find(R.id.recyclerLy)
     private RecyclerView recyclerLy;
 
@@ -55,6 +58,7 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener 
         adapter = new MsgAdapter(getContext());
         adapter.setAdapterData(strings);
         adapter.setClickListener(this);
+        adapter.setLongClickListener(this);
         recyclerLy.setAdapter(adapter);
         return view;
     }
@@ -64,5 +68,28 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener 
         FxEventBean<Integer> bean = new FxEventBean<>("ImUserId",adapter.getPositionFromTag(v));
         FxBus.post(bean);
         FoxBaseManagement.getFoxManagement().beginActivity(ImActivity.class);
+    }
+
+    private Dialog dialog;
+
+    @Override
+    public boolean onLongClick(View v) {
+        dialog = WaChatDialog.showAffirmDialog(
+                getContext(),
+                "删除后,将清空该聊天的消息记录",
+                "取消",
+                "删除",
+                new MsgDialogClickListener() {
+                    @Override
+                    public void doYes() {
+                        dialog.dismiss();
+                    }
+                    @Override
+                    public void doNo() {
+                        dialog.dismiss();
+                    }
+                }
+        );
+        return true;
     }
 }

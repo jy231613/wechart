@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.qb.wechat.R;
 import com.qb.wxbase.adapter.FoxAdapter;
+import com.qb.wxbase.create.foxbind.Find;
+import com.qb.wxbase.create.foxbind.FoxFindBind;
 
 /**
  * ================================================
@@ -47,16 +49,18 @@ public class MsgAdapter extends FoxAdapter<String,MsgAdapter.ViewHolder>{
 
         viewHolder.clickLy.setTag(position);
         bindOnclickListener(viewHolder.clickLy);
+        bindOnLongClickListener(viewHolder.clickLy);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
+        @Find(R.id.userNameText)
         TextView userNameText;
+        @Find(R.id.clickLy)
         LinearLayout clickLy;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            userNameText = itemView.findViewById(R.id.userNameText);
-            clickLy = itemView.findViewById(R.id.clickLy);
+            FoxFindBind.bind(this.getClass(),this,itemView);
         }
     }
 }

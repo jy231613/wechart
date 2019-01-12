@@ -6,8 +6,8 @@
         <!-- 背景透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:layout_marginLeft">30dp</item>
-        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
         <!-- 浮于Activity之上 -->
         <item name="android:windowIsFloating">true</item>
         <!-- 边框 -->
@@ -23,7 +23,7 @@
     </style>
 
 
-    <!-- ActionSheet进出动画 -->
+    <!-- 微信进出动画 -->
     <style name="wx_dialog_anim" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/wx_dialog_in</item>
         <item name="android:windowExitAnimation">@anim/wx_dialog_out</item>

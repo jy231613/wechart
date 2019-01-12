@@ -8,14 +8,14 @@ import android.support.v4.view.ViewPager;
  * 项    目：zcapp
  * 日    期：2018/8/25 0025--3:32--星期六
  * 包    名：cn.secret.base.listener
- * 描    述：ViewPager选择切换监听
+ * 描    述：ViewPager滑动和切换监听
  * Create by Administrator from AndroidStudio3.1
  * ================================================
  */
-public class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
-    private OnSelect onSelect;
+public class ViewPageScrollAndChangeListener implements ViewPager.OnPageChangeListener {
+    private OnScrollAndChange onScroll;
 
-    public ViewPageChangeListener(OnSelect onSelect){this.onSelect = onSelect;}
+    public ViewPageScrollAndChangeListener(OnScrollAndChange onScroll){this.onScroll = onScroll;}
 
     /**
      *当前页面被滚动时，这个方法将被调用，或者作为一部分以编程方式启动的平滑滚动或用户发起的触摸滚动。
@@ -34,7 +34,7 @@ public class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
      */
     @Override
     public void onPageSelected(int position) {
-        onSelect.onSelect(position);
+        onScroll.onSelect(position);
     }
 
     /**
@@ -46,10 +46,40 @@ public class ViewPageChangeListener implements ViewPager.OnPageChangeListener {
      */
     @Override
     public void onPageScrollStateChanged(int state) {
+        switch (state){
+            case ViewPager.SCROLL_STATE_IDLE:
+                onScroll.onIdle();
+                break;
+            case ViewPager.SCROLL_STATE_DRAGGING:
+                onScroll.onDragging();
+                break;
+            case ViewPager.SCROLL_STATE_SETTLING:
+                onScroll.onSettling();
+                break;
+        }
     }
 
 
-    public interface OnSelect{
+    public interface OnScrollAndChange{
+        /**
+         * 处于闲置状态。当前页面完全在视图中，没有动画在进行中。
+         */
+        void onIdle();
+
+        /**
+         * 目前正被用户拖拽
+         */
+        void onDragging();
+
+        /**
+         * 正处于最终位置的过程中。
+         */
+        void onSettling();
+
+        /**
+         * 切换监听
+         * @param position 索引
+         */
         void onSelect(int position);
     }
 }

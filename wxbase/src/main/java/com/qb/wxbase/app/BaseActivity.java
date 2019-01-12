@@ -47,6 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             SwipeBackLayout layout = (SwipeBackLayout) LayoutInflater.from(this).inflate(R.layout.layout_swipe_back, null);
             layout.attachToActivity(this);
         }
+        afterSetView();
         setContentView(gainContentView());
         foxContext = this;
         //初始化SpEasy自动注入
@@ -74,6 +75,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         //创建视图方法
         create();
     }
+
+    /**
+     * 设置页面之前
+     */
+    protected void afterSetView(){};
 
     @Override
     public void startActivity(Intent intent) {

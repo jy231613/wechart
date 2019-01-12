@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 
+import com.qb.wxbase.create.foxbind.FoxFindBind;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +100,16 @@ public abstract class FoxAdapter<BEAN,HOD extends RecyclerView.ViewHolder> exten
             return 0;
         } else {
             return items.size();
+        }
+    }
+
+    /**
+     * 带有FoxBind特性的ViewHolder
+     */
+    protected class FoxViewHolder extends RecyclerView.ViewHolder {
+        protected FoxViewHolder(@NonNull View itemView) {
+            super(itemView);
+            FoxFindBind.bind(this.getClass(),this,itemView);
         }
     }
 

@@ -32,17 +32,17 @@ public class WaChatDialog {
     }
     public static Dialog showImageDialog(Context context,String imgUrl,String noBtn,String yesBtn, MsgDialogClickListener listener){
         Dialog dialog = initImageDialog(context,null,imgUrl,noBtn,yesBtn,listener);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
     public static Dialog showImageDialog(Context context, String imgUrl, MsgDialogClickListener listener){
         Dialog dialog = initImageDialog(context,null,imgUrl,null,null,listener);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
     public static Dialog showImageDialog(Context context, String title, String imgUrl,MsgDialogClickListener listener){
         Dialog dialog = initImageDialog(context,title,imgUrl,null,null,listener);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
     public static Dialog showImageDialog(Context context,String content,String noBtn,String yesBtn, MsgDialogClickListener listener,boolean isSide){
@@ -90,17 +90,17 @@ public class WaChatDialog {
     }
     public static Dialog showAffirmDialog(Context context,String content,String noBtn,String yesBtn, MsgDialogClickListener listener){
         Dialog dialog = initAffirmDialog(context,null,content,noBtn,yesBtn,listener);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
     public static Dialog showAffirmDialog(Context context, String content, MsgDialogClickListener listener){
         Dialog dialog = initAffirmDialog(context,null,content,null,null,listener);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
     public static Dialog showAffirmDialog(Context context, String title, String content,MsgDialogClickListener listener){
         Dialog dialog = initAffirmDialog(context,title,content,null,null,listener);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
     public static Dialog showAffirmDialog(Context context,String content,String noBtn,String yesBtn, MsgDialogClickListener listener,boolean isSide){

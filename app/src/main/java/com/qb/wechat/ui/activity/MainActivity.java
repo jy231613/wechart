@@ -16,7 +16,8 @@ import com.qb.wxbase.adapter.FragAdapter;
 import com.qb.wxbase.app.BaseActivity;
 import com.qb.wxbase.create.foxbind.Find;
 import com.qb.wxbase.listener.OnNotRepetitionClickListener;
-import com.qb.wxbase.listener.ViewPageChangeListener;
+import com.qb.wxbase.listener.ViewPageScrollAndChangeListener;
+import com.qb.wxbase.util.apkutil.SystemUtils;
 import com.qb.wxbase.widget.viewpage.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -64,6 +65,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected int setTopBarColor() {
+        return R.color.colorPrimary;
+    }
+
+    @Override
     protected int gainContentView() {
         return R.layout.activity_main;
     }
@@ -76,7 +82,26 @@ public class MainActivity extends BaseActivity {
         //初始化ViewPage
         FragAdapter adapter = new FragAdapter(getSupportFragmentManager(),fragments);
         scrollViewPage.setAdapter(adapter);
-        scrollViewPage.addOnPageChangeListener(new ViewPageChangeListener(this::selectTab));
+        scrollViewPage.addOnPageChangeListener(new ViewPageScrollAndChangeListener(new ViewPageScrollAndChangeListener.OnScrollAndChange() {
+            @Override
+            public void onIdle() {
+                addressBookFragment.setGoneCustom(false);
+            }
+
+            @Override
+            public void onDragging() {
+                addressBookFragment.setGoneCustom(true);
+            }
+
+            @Override
+            public void onSettling() {
+            }
+
+            @Override
+            public void onSelect(int position) {
+                selectTab(position);
+            }
+        }));
         scrollViewPage.setNoScroll(false);
 
         //初始化子页面监听
@@ -128,6 +153,12 @@ public class MainActivity extends BaseActivity {
     protected void destory() {
         super.destory();
         MainMenuList.destory();
+    }
+
+    @Override
+    protected void begin() {
+        super.begin();
+        SystemUtils.setTopFontColor(this,true);
     }
 
     /**

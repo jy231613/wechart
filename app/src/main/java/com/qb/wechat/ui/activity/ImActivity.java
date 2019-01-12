@@ -4,6 +4,7 @@ import com.qb.wechat.R;
 import com.qb.wxbase.app.BaseActivity;
 import com.qb.wxbase.create.foxbus.Improved.FxEventBean;
 import com.qb.wxbase.create.foxbus.Improved.base.FxGet;
+import com.qb.wxbase.util.apkutil.SystemUtils;
 
 /**
  * ================================================
@@ -27,11 +28,22 @@ public class ImActivity extends BaseActivity{
 
     @Override
     protected void create() {
-        showToast(String.valueOf(userIdBean.getBean()));
+//        showToast(String.valueOf(userIdBean.getBean()));
+    }
+
+    @Override
+    protected boolean isShowTopBar() {
+        return true;
     }
 
     @Override
     protected boolean isOpenSwipeBack() {
         return true;
+    }
+
+    @Override
+    protected void begin() {
+        super.begin();
+        SystemUtils.setTopFontColor(this,false);
     }
 }
