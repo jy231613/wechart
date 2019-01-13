@@ -1,5 +1,6 @@
 package com.qb.wxbase.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -67,6 +68,14 @@ public abstract class BaseFragment extends Fragment{
      */
     protected void showToast(String msg){
         Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 获取BaseActivity
+     * @return BaseActivity
+     */
+    public BaseActivity getBaseActivity(){
+        return (BaseActivity) getActivity();
     }
 
     /**
