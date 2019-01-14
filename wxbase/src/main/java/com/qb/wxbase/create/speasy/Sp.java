@@ -30,10 +30,10 @@ public class Sp {
      * @param context 上下文关系
      */
     public static void init(Context context){
-        init(context);
+        init(context,SpEasy.getSingle().getDispose());
     }
     public static void init(Context context, SpEasy.SpException spException){
-        init(context,spException);
+        SpEasy.init(context,spException);
     }
 
     /**

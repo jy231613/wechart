@@ -4,6 +4,7 @@ import com.qb.wechat.R;
 import com.qb.wxbase.app.BaseActivity;
 import com.qb.wxbase.create.foxbus.Improved.FxEventBean;
 import com.qb.wxbase.create.foxbus.Improved.base.FxGet;
+import com.qb.wxbase.create.sql.base.SqlScan;
 import com.qb.wxbase.util.apkutil.SystemUtils;
 
 /**

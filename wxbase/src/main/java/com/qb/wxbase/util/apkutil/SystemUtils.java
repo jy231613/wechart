@@ -13,8 +13,18 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Set;
+
+import dalvik.system.DexFile;
+import dalvik.system.PathClassLoader;
 
 /**
  * ================================================
@@ -165,6 +175,125 @@ public class SystemUtils {
             e.printStackTrace();
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * 得到input流
+     * @param context  上下文
+     * @param fileName 文件名
+     * @return String
+     */
+    public static InputStream getXmlInPut(Context context, String fileName) {
+        StringBuilder stringBuilder = new StringBuilder();
+        //获得assets资源管理器
+        AssetManager assetManager = context.getAssets();
+        //使用IO流读取文件内容
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName), "utf-8"));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ByteArrayInputStream(stringBuilder.toString().getBytes());
+    }
+
+    /**
+     * 获取包下所有类
+     * @param packageName 包名
+     * @param context 上下文
+     * @return List<String>包名集合
+     */
+    public static List<String> getClassName(String packageName,Context context){
+        List<String>classNameList=new ArrayList<>();
+        try {
+            DexFile df = new DexFile(context.getPackageCodePath());//通过DexFile查找当前的APK中可执行文件
+            Enumeration<String> enumeration = df.entries();//获取df中的元素  这里包含了所有可执行的类名 该类名包含了包名+类名的方式
+            while (enumeration.hasMoreElements()) {//遍历
+                String className = enumeration.nextElement();
+//                if (className.contains(packageName)) {//在当前所有可执行的类里面查找包含有该包名的所有类
+//                    classNameList.add(className);
+//                }
+                classNameList.add(className);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  classNameList;
+    }
+
+    public static List<Class<?>> scan(Context ctx, String entityPackage) {
+        List<Class<?>> classes = new ArrayList<Class<?>>();
+        try {
+            PathClassLoader classLoader = (PathClassLoader) Thread
+                    .currentThread().getContextClassLoader();
+            DexFile dex = new DexFile(ctx.getPackageResourcePath());
+            Enumeration<String> entries = dex.entries();
+            while (entries.hasMoreElements()) {
+                String entryName = entries.nextElement();
+                if (entryName.contains(entityPackage)) {
+//                    Class<?> entryClass = Class.forName(entryName, true,classLoader);
+                    //疑问：<span style="font-size: 1em; line-height: 1.5;">Class.forName(entryName);这种方式不知道为什么返回null，哪位大神知道原因，请指点一下小弟吧  感激不尽</span>
+//                    DatabaseTable annotation = entryClass.getAnnotation(DatabaseTable.class);
+//                    if (annotation != null) {
+//
+//                    }
+                }
+                Class<?> entryClass = Class.forName(entryName, true,ctx.getClassLoader());
+                classes.add(entryClass);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return classes;
+    }
+
+    /**
+     * 扫描包路径下的所有class文件
+     *
+     * @param pkgName 包名
+     * @param pkgPath 包对应的绝对地址
+     * @param classes 保存包路径下class的集合
+     */
+    public static void findClassesByFile(String pkgName, String pkgPath, Set<Class<?>> classes) {
+        File dir = new File(pkgPath);
+        if (!dir.exists() || !dir.isDirectory()) {
+            return;
+        }
+        // 过滤获取目录，or class文件
+        File[] dirfiles = dir.listFiles(pathname -> pathname.isDirectory() || pathname.getName().endsWith("class"));
+        if (dirfiles == null || dirfiles.length == 0) {
+            return;
+        }
+        String className;
+        Class clz;
+        for (File f : dirfiles) {
+            if (f.isDirectory()) {
+                findClassesByFile(pkgName + "." + f.getName(),
+                        pkgPath + "/" + f.getName(),
+                        classes);
+                continue;
+            }
+            // 获取类名，干掉 ".class" 后缀
+            className = f.getName();
+            className = className.substring(0, className.length() - 6);
+            // 加载类
+            clz = loadClass(pkgName + "." + className);
+            if (clz != null) {
+                classes.add(clz);
+            }
+        }
+    }
+    private static Class<?> loadClass(String fullClzName) {
+        try {
+            return Thread.currentThread().getContextClassLoader().loadClass(fullClzName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

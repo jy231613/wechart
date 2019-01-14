@@ -2,6 +2,8 @@ package com.qb.wechat.base;
 
 import com.qb.wxbase.app.BaseApplication;
 import com.qb.wxbase.create.speasy.SpEasy;
+import com.qb.wxbase.create.sql.FS;
+import com.qb.wxbase.create.sql.base.SqlScan;
 
 /**
  * ================================================
@@ -20,5 +22,7 @@ public class WwApplication extends BaseApplication {
         super.onCreate();
         //初始化SpEasy
         SpEasy.init(this);
+        //初始化foxSql组件
+        FS.init(this);
     }
 }

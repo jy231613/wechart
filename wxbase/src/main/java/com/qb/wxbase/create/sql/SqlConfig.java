@@ -20,6 +20,11 @@ public final class SqlConfig {
     private final static String SQL_SYSTEM_ID = "id integer primary key autoincrement,";
 
     /**
+     * 系统预定义不自增id
+     */
+    private final static String SQL_SYSTEM_ID_NO_AUTO = "id integer primary key,";
+
+    /**
      * 数据库表创建语句
      * %tableName -> 表名
      * %systemId -> 系统Id(主键)
@@ -101,7 +106,7 @@ public final class SqlConfig {
         otherParams.deleteCharAt(otherParams.length()-2);
         return CREATE_TABER_SQL
                 .replace("%tableName",tableName)
-                .replace("%systemId",isSetSystemId?SQL_SYSTEM_ID:"")
+                .replace("%systemId",isSetSystemId?SQL_SYSTEM_ID:SQL_SYSTEM_ID_NO_AUTO)
                 .replace("%otherParams", otherParams.toString());
     }
 

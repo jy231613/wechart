@@ -1,4 +1,4 @@
-package com.qb.wxbase.create.sql;
+package com.qb.wxbase.create.sql.base;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -17,6 +17,7 @@ import android.support.annotation.RequiresApi;
  * ================================================
  */
 public class FxDbOperation extends SQLiteOpenHelper{
+    private String sql;
     /**
      * 构造方法
      * @param context 上下文
@@ -26,6 +27,14 @@ public class FxDbOperation extends SQLiteOpenHelper{
      */
     public FxDbOperation(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+    }
+
+    /**
+     * 创建时执行
+     */
+    public FxDbOperation(Context context, String name, SQLiteDatabase.CursorFactory factory, int version,String sql) {
+        super(context, name, factory, version);
+        this.sql = sql;
     }
 
     public FxDbOperation(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
@@ -43,7 +52,7 @@ public class FxDbOperation extends SQLiteOpenHelper{
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("");
+        db.execSQL(sql);
     }
 
     /**
