@@ -40,6 +40,12 @@ public class FS {
     }
 
     /**
+     * 销毁释放资源
+     */
+    public static void destroy(){
+    }
+
+    /**
      * 在main方法中调用此方法用来生成扫描注解包下的类
      * @param thisCls 当前调用main方法的类对象
      */

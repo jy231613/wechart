@@ -50,7 +50,7 @@ import dalvik.system.DexFile;
  * ================================================
  */
 public class SqlScan {
-    private static ConfigModel configModel = null;
+    public static ConfigModel configModel = null;
     private static String sqlSss = "tables.json";
 
     /**
@@ -123,7 +123,7 @@ public class SqlScan {
             String tableName = cls.getAnnotation(Table.class).value().equals("") ? cls.getSimpleName() : cls.getAnnotation(Table.class).value();
             String SQL = SqlConfig.createTable(tableName, isHaveId == 0, params.toArray(new String[]{}));
             Log.d("foxsql", "scanTable: >>>" + SQL);
-            FxDbOperation operation = new FxDbOperation(context,tableName,null,1,SQL);
+            FxDbOperation operation = new FxDbOperation(context,tableName,null,configModel.getVersion(),SQL);
             SQLiteDatabase db = operation.getWritableDatabase();
             if (db!=null) Log.d("foxsql", "createSql: >> 数据库创建成功！");
             db = null;
@@ -146,8 +146,10 @@ public class SqlScan {
             Element element = document.getDocumentElement();
             Element nameElement = (Element) element.getElementsByTagName("scanName").item(0);
             Element catchElement = (Element) element.getElementsByTagName("catchOpen").item(0);
+            Element verElement = (Element) element.getElementsByTagName("version").item(0);
             configModel.setScanName(nameElement.getTextContent());
             configModel.setCatchOpen(catchElement.getTextContent().equals("true"));
+            configModel.setVersion(Integer.valueOf(verElement.getTextContent()));
             Log.d("foxsql", "readerConfig: >>" + configModel.toString());
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();

@@ -15,6 +15,7 @@ public class ConfigModel {
 
     private String scanName = "";
     private String jsonPath = "";
+    private int version = 1;
     private boolean catchOpen = false;
 
     public String getScanName() {
@@ -35,6 +36,14 @@ public class ConfigModel {
 
     public String getJsonPath() {
         return jsonPath;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public void setJsonPath(String jsonPath) {
