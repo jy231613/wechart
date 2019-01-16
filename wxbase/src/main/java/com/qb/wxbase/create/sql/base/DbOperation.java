@@ -253,12 +253,16 @@ public final class DbOperation<T> implements DbO<T> {
 
     @Override
     public boolean del(Class<T> t, String where, String[] values) {
-
+        Table table = t.getClass().getAnnotation(Table.class);
+        if (table != null) {
+            int number = operation.getWritableDatabase().delete(table.value(),where,values);
+            return number > 0;
+         }
         return false;
     }
 
     @Override
     public boolean del(Class<T> t, String id) {
-        return false;
+        return del(t,"id = ?",new String[]{id});
     }
 }
