@@ -3,6 +3,8 @@ package com.qb.wxbase.create.sql.base;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.qb.wxbase.create.sql.base.norm.DbO;
 import com.qb.wxbase.create.sql.exception.NoPrimaryKeyException;
@@ -71,13 +73,22 @@ public final class DbOperation<T> implements DbO<T> {
         String systemParamName = null;
         List<String> fieList = new ArrayList<>();
         for (Field fie : fields) {
+            if (fie.getAnnotation(Useless.class) != null) continue;
             SystemId systemId = fie.getAnnotation(SystemId.class);
             if (systemId != null) {
                 systemParamName = fie.getName();
                 fieList.add("id");
                 continue;
             }
-            fieList.add(fie.getName());
+            Alias alias = fie.getAnnotation(Alias.class);
+            Param param = fie.getAnnotation(Param.class);
+            if (param != null) {
+                fieList.add(param.value().equals("") ? fie.getName() : param.value());
+                continue;
+            }
+            if (alias != null) {
+                fieList.add(alias.value().equals("") ? fie.getName() : alias.value());
+            }
         }
         if (systemParamName == null) try {
             throw new NoPrimaryKeyException();
@@ -96,7 +107,8 @@ public final class DbOperation<T> implements DbO<T> {
             //获取表名
             String tableName = table.value().equals("") ? tClass.getSimpleName() : table.value();
             //获取数据库对象
-            Cursor cursor = operation.getReadableDatabase().query(tableName, params, where, values, null, null, null);
+            SQLiteDatabase db = operation.getReadableDatabase();
+            Cursor cursor = db.query(tableName, params, where, values, null, null, null);
             //遍历结果集
             if (cursor.moveToFirst()) {
                 try {
@@ -163,10 +175,12 @@ public final class DbOperation<T> implements DbO<T> {
                     }
                 }
                 int number;
+                //获取数据库对象
+                SQLiteDatabase db = operation.getReadableDatabase();
                 if (values == null) {
-                    number = operation.getWritableDatabase().update(table.value().equals("") ? t.getClass().getSimpleName() : table.value(), val, where, new String[]{systemIdValue});
+                    number = db.update(table.value().equals("") ? t.getClass().getSimpleName() : table.value(), val, where, new String[]{systemIdValue});
                 } else {
-                    number = operation.getWritableDatabase().update(table.value().equals("") ? t.getClass().getSimpleName() : table.value(), val, where, values);
+                    number = db.update(table.value().equals("") ? t.getClass().getSimpleName() : table.value(), val, where, values);
                 }
                 if (number > 0) return true;
             } catch (IllegalAccessException e) {
@@ -189,15 +203,20 @@ public final class DbOperation<T> implements DbO<T> {
         //赋值
         Type type = fie.getType();
         if (type == int.class) {
-            fie.set(obj, Integer.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
+            if (cursor.getString(cursor.getColumnIndex(fName)) != null)
+                fie.set(obj, Integer.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
         } else if (type == double.class) {
-            fie.set(obj, Double.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
+            if (cursor.getString(cursor.getColumnIndex(fName)) != null)
+                fie.set(obj, Double.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
         } else if (type == boolean.class) {
-            fie.set(obj, Boolean.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
+            if (cursor.getString(cursor.getColumnIndex(fName)) != null)
+                fie.set(obj, Boolean.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
         } else if (type == float.class) {
-            fie.set(obj, Float.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
+            if (cursor.getString(cursor.getColumnIndex(fName)) != null)
+                fie.set(obj, Float.valueOf(cursor.getString(cursor.getColumnIndex(fName))));
         } else {
-            fie.set(obj, cursor.getString(cursor.getColumnIndex(fName)));
+            if (cursor.getString(cursor.getColumnIndex(fName)) != null)
+                fie.set(obj, cursor.getString(cursor.getColumnIndex(fName)));
         }
     }
 
@@ -210,6 +229,7 @@ public final class DbOperation<T> implements DbO<T> {
             Field[] fields = t.getClass().getDeclaredFields();
             // 添加数据
             ContentValues values = new ContentValues();
+            StringBuilder paramsStr = new StringBuilder();
             try {
                 for (Field fie : fields) {
                     if (fie.getAnnotation(Useless.class) != null) continue;
@@ -219,16 +239,19 @@ public final class DbOperation<T> implements DbO<T> {
                             continue;
                         } else {
                             values.put("id", String.valueOf(fie.get(t)));
+                            paramsStr.append("id,");
                         }
                     }
                     Alias alias = fie.getAnnotation(Alias.class);
                     Param param = fie.getAnnotation(Param.class);
                     if (alias != null) {
-                        values.put(fie.getName(), String.valueOf(fie.get(t)));
+                        values.put(alias.value().equals("") ? fie.getName() : alias.value(), String.valueOf(fie.get(t)));
+                        paramsStr.append(alias.value().equals("") ? fie.getName() : alias.value()).append(",");
                         continue;
                     }
                     if (param != null) {
-                        values.put(fie.getName(), String.valueOf(fie.get(t)));
+                        values.put(param.value().equals("") ? fie.getName() : param.value(), String.valueOf(fie.get(t)));
+                        paramsStr.append(param.value().equals("") ? fie.getName() : param.value()).append(",");
                     }
                 }
             } catch (IllegalAccessException e) {
@@ -237,7 +260,8 @@ public final class DbOperation<T> implements DbO<T> {
             //获取表名
             String tableName = table.value().equals("") ? t.getClass().getSimpleName() : table.value();
             //获取数据库对象
-            long number = operation.getWritableDatabase().insert(tableName, null, values);
+            SQLiteDatabase db = operation.getReadableDatabase();
+            long number = db.insert(tableName, paramsStr.substring(0, paramsStr.length() - 1), values);
             if (number > 0) isSuccess = true;
         }
         return isSuccess;
@@ -253,16 +277,20 @@ public final class DbOperation<T> implements DbO<T> {
 
     @Override
     public boolean del(Class<T> t, String where, String[] values) {
-        Table table = t.getClass().getAnnotation(Table.class);
+        Table table = t.getAnnotation(Table.class);
         if (table != null) {
-            int number = operation.getWritableDatabase().delete(table.value(),where,values);
+            //获取数据库对象
+            SQLiteDatabase db = operation.getReadableDatabase();
+            int number = db.delete(table.value().equals("") ? t.getSimpleName() : table.value(), where, values);
             return number > 0;
-         }
+        }else{
+            Log.d("TAG", "del: >>> table为空");
+        }
         return false;
     }
 
     @Override
     public boolean del(Class<T> t, String id) {
-        return del(t,"id = ?",new String[]{id});
+        return del(t, " id = ? ", new String[]{id});
     }
 }

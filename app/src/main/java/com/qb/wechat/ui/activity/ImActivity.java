@@ -1,11 +1,14 @@
 package com.qb.wechat.ui.activity;
 
 import com.qb.wechat.R;
+import com.qb.wechat.aax.UserMsgListDb;
 import com.qb.wxbase.app.BaseActivity;
 import com.qb.wxbase.create.foxbus.Improved.FxEventBean;
 import com.qb.wxbase.create.foxbus.Improved.base.FxGet;
-import com.qb.wxbase.create.sql.base.SqlScan;
+import com.qb.wxbase.create.sql.base.DbOperation;
+import com.qb.wxbase.create.sql.base.OperationFactory;
 import com.qb.wxbase.util.apkutil.SystemUtils;
+import com.qb.wxbase.util.baseutil.TimeUtil;
 
 /**
  * ================================================
@@ -20,7 +23,7 @@ import com.qb.wxbase.util.apkutil.SystemUtils;
 public class ImActivity extends BaseActivity{
 
     @FxGet("ImUserId")
-    private FxEventBean<Integer> userIdBean;
+    private FxEventBean<UserMsgListDb> userIdBean;
 
     @Override
     protected int gainContentView() {
@@ -46,5 +49,8 @@ public class ImActivity extends BaseActivity{
     protected void begin() {
         super.begin();
         SystemUtils.setTopFontColor(this,false);
+        DbOperation<UserMsgListDb> dbDbOperation = new DbOperation<>(OperationFactory.getFactory().getOperation(UserMsgListDb.class));
+        userIdBean.getBean().setLastDate(TimeUtil.getTime());
+        dbDbOperation.update(userIdBean.getBean());
     }
 }

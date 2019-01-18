@@ -2,6 +2,7 @@ package com.qb.wxbase.create.sql;
 
 import android.content.Context;
 
+import com.qb.wxbase.create.sql.base.OperationFactory;
 import com.qb.wxbase.create.sql.base.SqlScan;
 import com.qb.wxbase.create.sql.note.MakeClass;
 import com.qb.wxbase.create.sql.note.Table;
@@ -37,6 +38,8 @@ public class FS {
         SqlScan.readerConfig(context);
         //扫描包下的表
         SqlScan.createSql(SqlScan.scanTable(context),context);
+        //初始化数据对象
+        OperationFactory.initFactory(context);
     }
 
     /**

@@ -4,40 +4,29 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.qb.wxbase.create.sql.SqlConfig;
 import com.qb.wxbase.create.sql.exception.NoPrimaryKeyException;
 import com.qb.wxbase.create.sql.model.ConfigModel;
 import com.qb.wxbase.create.sql.note.Alias;
-import com.qb.wxbase.create.sql.note.DefaultValue;
 import com.qb.wxbase.create.sql.note.Param;
 import com.qb.wxbase.create.sql.note.SystemId;
 import com.qb.wxbase.create.sql.note.Table;
 import com.qb.wxbase.create.sql.note.Useless;
 import com.qb.wxbase.json.Json;
-import com.qb.wxbase.util.apkutil.ClassUtil;
 import com.qb.wxbase.util.apkutil.SystemUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import dalvik.system.DexFile;
 
 /**
  * ================================================

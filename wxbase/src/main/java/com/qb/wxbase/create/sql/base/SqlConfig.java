@@ -1,4 +1,4 @@
-package com.qb.wxbase.create.sql;
+package com.qb.wxbase.create.sql.base;
 
 import java.util.Map;
 

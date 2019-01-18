@@ -1,9 +1,13 @@
 package com.qb.wechat.base;
 
+import com.qb.wechat.aax.UserMsgListDb;
 import com.qb.wxbase.app.BaseApplication;
 import com.qb.wxbase.create.speasy.SpEasy;
 import com.qb.wxbase.create.sql.FS;
+import com.qb.wxbase.create.sql.base.DbOperation;
+import com.qb.wxbase.create.sql.base.OperationFactory;
 import com.qb.wxbase.create.sql.base.SqlScan;
+import com.qb.wxbase.util.baseutil.TimeUtil;
 
 /**
  * ================================================
@@ -24,5 +28,6 @@ public class WwApplication extends BaseApplication {
         SpEasy.init(this);
         //初始化foxSql组件
         FS.init(this);
+
     }
 }

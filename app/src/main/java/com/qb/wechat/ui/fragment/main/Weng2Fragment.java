@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qb.wechat.R;
+import com.qb.wechat.aax.UserMsgListDb;
 import com.qb.wechat.adapter.MsgAdapter;
 import com.qb.wechat.ui.activity.ImActivity;
 import com.qb.wechat.widget.MainTopBar;
@@ -17,6 +18,9 @@ import com.qb.wxbase.create.foxbind.Find;
 import com.qb.wxbase.create.foxbus.FxBus;
 import com.qb.wxbase.create.foxbus.Improved.FxEventBean;
 import com.qb.wxbase.create.speasy.Sp;
+import com.qb.wxbase.create.sql.base.DbOperation;
+import com.qb.wxbase.create.sql.base.OperationFactory;
+import com.qb.wxbase.util.baseutil.TimeUtil;
 import com.qb.wxui.dialog.WaChatDialog;
 import com.qb.wxui.dialog.util.MsgDialogClickListener;
 
@@ -46,17 +50,26 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener,
         return R.layout.fragment_weng2;
     }
 
+    List<UserMsgListDb> userMsgListDbs;
+    DbOperation<UserMsgListDb> dbDbOperation;
+
     @Override
     protected View create(View view) {
         gridLayoutManager = new GridLayoutManager(getContext(),1);
         recyclerLy.setLayoutManager(gridLayoutManager);
 
-        List<String> strings = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            strings.add("测试"+i);
-        }
+        dbDbOperation = new DbOperation<>(OperationFactory.getFactory().getOperation(UserMsgListDb.class));
+//        //添加一些数据
+//        for (int i = 0; i < 5; i++) {
+//            UserMsgListDb userMsgListDb = new UserMsgListDb();
+//            userMsgListDb.setForbidden(0);
+//            userMsgListDb.setUserName("hello::"+i);
+//            userMsgListDb.setLastDate(TimeUtil.getTime());
+//            dbDbOperation.insert(userMsgListDb);
+//        }
+        userMsgListDbs = dbDbOperation.select(UserMsgListDb.class,"1=1",new String[]{});
         adapter = new MsgAdapter(getContext());
-        adapter.setAdapterData(strings);
+        adapter.setAdapterData(userMsgListDbs);
         adapter.setClickListener(this);
         adapter.setLongClickListener(this);
         recyclerLy.setAdapter(adapter);
@@ -65,7 +78,7 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        FxEventBean<Integer> bean = new FxEventBean<>("ImUserId",adapter.getPositionFromTag(v));
+        FxEventBean<UserMsgListDb> bean = new FxEventBean<>("ImUserId",userMsgListDbs.get(adapter.getPositionFromTag(v)));
         FxBus.post(bean);
         FoxBaseManagement.getFoxManagement().beginActivity(ImActivity.class);
     }
@@ -83,6 +96,7 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener,
                     @Override
                     public void doYes() {
                         dialog.dismiss();
+                        dbDbOperation.del(UserMsgListDb.class,String.valueOf(userMsgListDbs.get(adapter.getPositionFromTag(v)).getId()));
                     }
                     @Override
                     public void doNo() {

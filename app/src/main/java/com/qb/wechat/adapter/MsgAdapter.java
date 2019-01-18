@@ -3,11 +3,13 @@ package com.qb.wechat.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qb.wechat.R;
+import com.qb.wechat.aax.UserMsgListDb;
 import com.qb.wxbase.adapter.FoxAdapter;
 import com.qb.wxbase.create.foxbind.Find;
 import com.qb.wxbase.create.foxbind.FoxFindBind;
@@ -22,7 +24,7 @@ import com.qb.wxbase.create.foxbind.FoxFindBind;
  * Create by Administrator from AndroidStudio3.2
  * ================================================
  */
-public class MsgAdapter extends FoxAdapter<String,MsgAdapter.ViewHolder>{
+public class MsgAdapter extends FoxAdapter<UserMsgListDb,MsgAdapter.ViewHolder>{
 
     /**
      * 构造方法,传入上下文关系
@@ -44,8 +46,11 @@ public class MsgAdapter extends FoxAdapter<String,MsgAdapter.ViewHolder>{
     }
 
     @Override
-    protected void bindViewHolder(ViewHolder viewHolder, String s, int position) {
-        viewHolder.userNameText.setText(s);
+    protected void bindViewHolder(ViewHolder viewHolder, UserMsgListDb s, int position) {
+        viewHolder.userNameText.setText(s.getUserName());
+        viewHolder.time.setText(s.getLastDate());
+
+        Log.d("TAG", "bindViewHolder: >>>"+s.toString());
 
         viewHolder.clickLy.setTag(position);
         bindOnclickListener(viewHolder.clickLy);
@@ -57,6 +62,8 @@ public class MsgAdapter extends FoxAdapter<String,MsgAdapter.ViewHolder>{
         TextView userNameText;
         @Find(R.id.clickLy)
         LinearLayout clickLy;
+        @Find(R.id.time)
+        TextView time;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

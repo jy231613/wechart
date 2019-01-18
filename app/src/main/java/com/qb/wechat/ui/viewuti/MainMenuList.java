@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * 项    目：wechat
  * 日    期：2019/1/9
  * 包    名：com.qb.wechat.ui.viewuti
- * 描    述：首页带单
+ * 描    述：首页菜单
  * Create by Administrator from AndroidStudio3.2
  * ================================================
  */

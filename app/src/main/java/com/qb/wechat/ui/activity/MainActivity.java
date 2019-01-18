@@ -147,6 +147,7 @@ public class MainActivity extends BaseActivity {
                 selectTab(3);
             }
         });
+
     }
 
     @Override
