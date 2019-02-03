@@ -55,7 +55,7 @@ public class Sp {
         init(cls,object);
         try{
             Field[] fields = cls.getDeclaredFields();
-            if (fields != null && fields.length > 0) {
+            if (fields.length > 0) {
                 for (Field field : fields) {
                     SpGet spGet = field.getAnnotation(SpGet.class);
                     if (spGet != null) {
@@ -91,7 +91,7 @@ public class Sp {
     public static <T extends SharedPreferencesTrait> void inSave(){
         try{
             Field[] fields = clss.get(clss.size()-1).getDeclaredFields();
-            if (fields != null && fields.length > 0) {
+            if (fields.length > 0) {
                 for (Field field : fields) {
                     SpGet spGet = field.getAnnotation(SpGet.class);
                     if (spGet != null) {

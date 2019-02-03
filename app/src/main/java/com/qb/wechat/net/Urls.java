@@ -12,8 +12,8 @@ package com.qb.wechat.net;
  */
 public class Urls {
     private final static String IP_CONFIG = "47.110.77.160";
-    private final static String PORT_CONFIG = ":5201";
-    private final static String NAME_CONFIG = "/api";
+    private final static String PORT_CONFIG = ":9627";
+    private final static String NAME_CONFIG = "/charts";
     private final static String Urls = "http://"+IP_CONFIG+PORT_CONFIG+NAME_CONFIG+"%z%c";
 
     /**
@@ -25,6 +25,14 @@ public class Urls {
         return Urls.replace("%z%c",url);
     }
 
-    //登录
-    public final static String test = "/test/str";
+    //用户登录
+    public final static String USER_LOGIN = "/login.u";
+    //用户注册
+    public final static String USER_REGISTER = "/register.u";
+    //用户退出
+    public final static String USER_LOGOUT = "/logout.u";
+    //修改密码
+    public final static String USER_ALTER_PASSWORD = "/alterPassword.u";
+    //发送验证码信息
+    public final static String USER_SEND_MESSAGE = "/sendMessage.u";
 }

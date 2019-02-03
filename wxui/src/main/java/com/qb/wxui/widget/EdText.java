@@ -27,7 +27,7 @@ import java.util.Objects;
  * Create by Administrator from AndroidStudio3.2
  * ================================================
  */
-public class EdText extends android.support.v7.widget.AppCompatEditText {
+public class  EdText extends android.support.v7.widget.AppCompatEditText {
     private OnViewLongWithDialogListener onViewLongWithDialogListener;
     private Dialog dialog;
 
@@ -106,7 +106,7 @@ public class EdText extends android.support.v7.widget.AppCompatEditText {
     @Override
     public void setText(CharSequence text, BufferType type) {
         super.setText(text, type);
-        if (text!=null)this.setSelection(this.getText().toString().length());//移动光标
+        this.setSelection(getTextStr().length());//移动光标
     }
 
     /**

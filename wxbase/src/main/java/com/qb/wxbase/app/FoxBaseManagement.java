@@ -38,10 +38,19 @@ public class FoxBaseManagement {
     }
 
     /**
+     * 获取当前最上层的Activity
+     * @return 上层Activity
+     */
+    public BaseActivity getNowActivity() {
+        return nowActivity;
+    }
+
+    /**
      * 绑定当前Activity
      * @param activity Activity对象
      */
     public void bindNowActivity(BaseActivity activity){
+        if (activity.equals(nowActivity))return;
         nowActivity = activity;
     }
 
@@ -59,17 +68,19 @@ public class FoxBaseManagement {
      * 退出一个Activity
      * @param activity Activity对象
      */
-    public void exitActivity(Activity activity){
+    public FoxBaseManagement exitActivity(Activity activity){
         activitySet.remove(activity);
         activity.finish();
+        return foxBaseManagement;
     }
 
     /**
      * 启动一个Activity
      * @param cls Class
      */
-    public void beginActivity(Class cls){
+    public FoxBaseManagement beginActivity(Class cls){
         nowActivity.startActivity(new Intent(nowActivity,cls));
+        return foxBaseManagement;
     }
 
     /**

@@ -74,6 +74,30 @@ public class DialogHelper {
         return dialog;
     }
 
+    public static Dialog showDownDialog(Context context,int layoutRes,int style,Bind.BindView bind){
+        Dialog dialog = new Dialog(context, style);
+        //填充对话框的布局
+        View inflate = LayoutInflater.from(context).inflate(layoutRes, null);
+        //布局数据绑定
+        bind.bindView(inflate);
+        //将布局设置给Dialog
+        dialog.setContentView(inflate);
+        //获取当前Activity所在的窗体
+        Window dialogWindow = dialog.getWindow();
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        // 设置宽高为match_parent，不要去算出来屏幕宽高再赋值哦，因为有些
+        // 有虚拟按键的手机上计算出来的高度不一定准确，所以dialog不会全屏
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(params);
+        //设置Dialog从窗体中间弹出
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        try{
+            dialog.show();
+        }catch (Exception e){}
+        return dialog;
+    }
+
     /**
      * 显示一个中间弹出的自定义布局提示框
      * @return dialog对象

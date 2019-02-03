@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="color_primary">#EDEDED</color>
+
     <color name="admin_color">#48c8a6</color>
     <color name="unadmin_color">#B3B3B3</color>
 

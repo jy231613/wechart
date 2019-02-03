@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">嗡嗡</string>
+
+    <string name="register_hint_nickname">例如:陈晨</string>
+    <string name="register_text_nick">昵称</string>
+    <string name="register_text_phoneRegister">手机号注册</string>
+    <string name="register_text_guoJia">国家/地区</string>
+    <string name="register_text_test_chines">中国(+86)</string>
+    <string name="register_text_phone">手机号</string>
+    <string name="register_hint_phone">请填写手机号</string>
+    <string name="register_text_password">密码</string>
+    <string name="register_hint_password">填写密码</string>
+    <string name="register_button_register">注册</string>
+
+    <string name="login_text_login">手机号登录</string>
+    <string name="login_button_login">登录</string>
+    <string name="login_text_guoJia">国家/地区</string>
+    <string name="login_text_test_chines">中国(+86)</string>
+    <string name="login_hint_phone">请填写手机号</string>
+    <string name="login_hint_chartN">请填写嗡嗡号</string>
+    <string name="login_text_password">密码</string>
+    <string name="login_hint_password">填写密码</string>
+    <string name="login_text_chartN">嗡嗡号</string>
+    <string name="login_text_anQuan">安全中心</string>
+    <string name="login_text_all">更多</string>
+    <string name="login_text_zhaoHui">找回密码</string>
+    <string name="login_button_chartN">嗡嗡号登录</string>
+    <string name="my_info_text_chartN">嗡嗡号:%d</string>
 </resources>

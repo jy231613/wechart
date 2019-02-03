@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#08C161</color>
 
+    <color name="no_colorAccent">#5508C161</color>
+
     <color name="admin_white">#ffffff</color>
     <color name="admin_pop_bg">#4C4C4C</color>
 
@@ -13,6 +15,8 @@
     <color name="text_name">#353535</color>
     <color name="text_bg">#656565</color>
     <color name="text_link">#576B95</color>
+
+    <color name="bg_gray">#55999999</color>
 
     <color name="icon_rad">#FA5151</color>
     <color name="icon_blue">#10AEFF</color>

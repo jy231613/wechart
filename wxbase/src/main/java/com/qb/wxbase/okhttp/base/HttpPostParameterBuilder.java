@@ -56,6 +56,7 @@ public class HttpPostParameterBuilder {
      */
     private static final MediaType JSON = MediaType.get("application/json");
     public RequestBody builder(){
+        Log.d("net", "builder: "+Json.toJson(map));
         return RequestBody.create(JSON, Json.toJson(map));
     }
 

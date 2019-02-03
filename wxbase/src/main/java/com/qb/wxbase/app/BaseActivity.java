@@ -19,6 +19,7 @@ import com.qb.wxbase.R;
 import com.qb.wxbase.create.foxbind.FoxFindBind;
 import com.qb.wxbase.create.foxbus.FxBus;
 import com.qb.wxbase.create.speasy.Sp;
+import com.qb.wxbase.rxsql.RxSqlBind;
 import com.qb.wxbase.util.apkutil.SystemUtils;
 import com.qb.wxbase.util.uibase.DialogFor;
 import com.qb.wxbase.widget.SwipeBackLayout;
@@ -144,6 +145,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (isToFoxManagement()) {
+            FoxBaseManagement.getFoxManagement().bindNowActivity(this);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         //页面销毁时取消标记
@@ -227,6 +236,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         startActivity(intent);
         return (FragmentActivity) this;
+    }
+
+    /**
+     * 退出
+     */
+    public void onBack(View view){
+        this.finish();
     }
 
     /**

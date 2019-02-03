@@ -37,8 +37,7 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void run() {
                         timer.cancel();
-                        FoxBaseManagement.getFoxManagement().beginActivity(MainActivity.class);
-                        FoxBaseManagement.getFoxManagement().exitActivity(SplashActivity.this);
+                        FoxBaseManagement.getFoxManagement().beginActivity(LoginActivity.class).exitActivity(SplashActivity.this);
                     }
                 });
             }

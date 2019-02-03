@@ -1,13 +1,11 @@
 package com.qb.wechat.base;
 
-import com.qb.wechat.aax.UserMsgListDb;
+import android.content.Intent;
+
 import com.qb.wxbase.app.BaseApplication;
+import com.qb.wxbase.coze.base.Coze;
 import com.qb.wxbase.create.speasy.SpEasy;
 import com.qb.wxbase.create.sql.FS;
-import com.qb.wxbase.create.sql.base.DbOperation;
-import com.qb.wxbase.create.sql.base.OperationFactory;
-import com.qb.wxbase.create.sql.base.SqlScan;
-import com.qb.wxbase.util.baseutil.TimeUtil;
 
 /**
  * ================================================
@@ -19,7 +17,8 @@ import com.qb.wxbase.util.baseutil.TimeUtil;
  * Create by Administrator from AndroidStudio3.2
  * ================================================
  */
-public class WwApplication extends BaseApplication {
+public class WwApplication extends BaseApplication{
+    private Intent intent;
 
     @Override
     public void onCreate() {
@@ -28,6 +27,12 @@ public class WwApplication extends BaseApplication {
         SpEasy.init(this);
         //初始化foxSql组件
         FS.init(this);
+        //初始化聊天服务
+        Coze.init(this);
+    }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
     }
 }

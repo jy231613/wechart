@@ -1,10 +1,17 @@
 package com.qb.wechat.ui.activity;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.qb.wechat.R;
+import com.qb.wechat.aax.UserMsgListDb;
 import com.qb.wechat.ui.fragment.main.AddressBookFragment;
 import com.qb.wechat.ui.fragment.main.DiscoverFragment;
 import com.qb.wechat.ui.fragment.main.MyFragment;
@@ -14,16 +21,21 @@ import com.qb.wechat.ui.viewuti.model.MainBottomModel;
 import com.qb.wechat.widget.MainTopBar;
 import com.qb.wxbase.adapter.FragAdapter;
 import com.qb.wxbase.app.BaseActivity;
+import com.qb.wxbase.app.FoxBaseManagement;
+import com.qb.wxbase.coze.base.CozeService;
+import com.qb.wxbase.coze.listener.ReceiveMessage;
 import com.qb.wxbase.create.foxbind.Find;
 import com.qb.wxbase.listener.OnNotRepetitionClickListener;
 import com.qb.wxbase.listener.ViewPageScrollAndChangeListener;
+import com.qb.wxbase.rxsql.RxSqlBind;
+import com.qb.wxbase.rxsql.base.RxSqlSet;
 import com.qb.wxbase.util.apkutil.SystemUtils;
 import com.qb.wxbase.widget.viewpage.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ServiceConnection{
     @Find(R.id.linearLayout)
     private LinearLayout linearLayout;
     @Find(R.id.scrollViewPage)
@@ -44,6 +56,8 @@ public class MainActivity extends BaseActivity {
     private DiscoverFragment discoverFragment;
     private AddressBookFragment addressBookFragment;
     private List<Fragment> fragments;
+
+    private CozeService.Binder binder;
 
     @Override
     protected void init() {
@@ -100,6 +114,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSelect(int position) {
                 selectTab(position);
+                if (position==0){//嗡嗡页
+                    //获取数据
+                    Log.d("TAG", "onSelect: >>>>>切换");
+                    RxSqlBind.select(UserMsgListDb.class,MainActivity.this);
+                }
             }
         }));
         scrollViewPage.setNoScroll(false);
@@ -148,6 +167,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        //绑定服务获取对象
+        bindService(new Intent(this,CozeService.class),this,Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -162,13 +183,30 @@ public class MainActivity extends BaseActivity {
         SystemUtils.setTopFontColor(this,true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //回显时刷新数据
+        RxSqlBind.select(UserMsgListDb.class,MainActivity.this);
+    }
+
     /**
-     * @param s
+     * 选中选项卡
+     * @param s 索引位置
      */
     public void selectTab(int s){
         if (s!=MainMenuList.getIndex()){
             MainMenuList.selectMenu(s,mainTopBar);
         }
+    }
+
+    /**
+     * 刷新主页面聊天对象数据
+     * @param userMsgListDbs 数据对象
+     */
+    @RxSqlSet(UserMsgListDb.class)
+    public void refreshWeng2Fragment(List<UserMsgListDb> userMsgListDbs){
+        weng2Fragment.refreshList(userMsgListDbs);
     }
 
     public void initTab(){
@@ -213,5 +251,19 @@ public class MainActivity extends BaseActivity {
                 findViewById(R.id.wx4)
         ));
         MainMenuList.initMenu(mainTopBar);
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        binder = (CozeService.Binder) service;
+        binder.initSocketServer(null);
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+    }
+
+    public void toUserInfo(View view) {
+        FoxBaseManagement.getFoxManagement().beginActivity(UserInfoActivity.class);
     }
 }

@@ -1,5 +1,7 @@
 package com.qb.wechat.net;
 
+import android.util.Log;
+
 import com.qb.wxbase.okhttp.Http;
 import com.qb.wxbase.okhttp.base.HttpCallBack;
 import com.qb.wxbase.okhttp.base.HttpPostParameterBuilder;
@@ -16,24 +18,36 @@ import com.qb.wxbase.okhttp.base.HttpPostParameterBuilder;
  */
 public class Net {
 
-    public static void test(String username,HttpCallBack callBack){
+    /**
+     * 用户登录
+     * @param type 0手机号登录,1嗡嗡号登录
+     * @param phone 手机号/嗡嗡号
+     * @param password 密码
+     * @param callBack 回调接口
+     */
+    public static void login(int type,String phone,String password,HttpCallBack callBack){
         HttpPostParameterBuilder builder = new HttpPostParameterBuilder();
-        builder.add("str",username);
-
-        Http.post(
-                Urls.getUrls(Urls.test),
-                builder,
-                callBack
-        );
+        builder.add("type",type);
+        builder.add("phone",phone);
+        builder.add("password",password);
+        Http.post(Urls.getUrls(Urls.USER_LOGIN), builder, callBack);
     }
 
-    public static void testGet(String username, HttpCallBack callBack){
+    /**
+     * 注册
+     * @param nickname 昵称
+     * @param userPic 用户头像,可以为空
+     * @param phone 手机号
+     * @param password 密码
+     * @param callBack 回调接口
+     */
+    public static void register(String nickname,String userPic,String phone,String password,HttpCallBack callBack){
         HttpPostParameterBuilder builder = new HttpPostParameterBuilder();
-        builder.add("str",username);
-        Http.get(
-                Urls.getUrls(Urls.test)+"?str="+username,
-                callBack
-        );
+        builder.add("userPic",userPic);
+        builder.add("nickname",nickname);
+        builder.add("phone",phone);
+        builder.add("password",password);
+        Http.post(Urls.getUrls(Urls.USER_REGISTER), builder, callBack);
     }
 
 }

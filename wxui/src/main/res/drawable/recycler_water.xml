@@ -3,7 +3,7 @@
 可通过android:color 这个属性改变涟漪波浪的颜色-->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:color="#E7E7E7"
+    android:color="#D9D9D9"
     tools:targetApi="lollipop">
     <!--下面设置颜色没有用，添加item以后会约束水波纹的范围-->
     <item android:drawable="@android:color/white" />

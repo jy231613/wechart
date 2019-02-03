@@ -35,6 +35,8 @@ public class UserMsgListDb {
     public int id;
 
     @Param
+    public String myId;//自身id
+    @Param
     public String userName;//用户名称
     @Param
     public String userImage;//用户图像地址
@@ -48,6 +50,14 @@ public class UserMsgListDb {
     public String lastDate;//最后聊天时间
     @Param
     public int forbidden;//0未禁用,1禁用
+
+    public String getMyId() {
+        return myId;
+    }
+
+    public void setMyId(String myId) {
+        this.myId = myId;
+    }
 
     public int getId() {
         return id;

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="30dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_top_x"/>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_text_login"
+        android:textColor="@color/text_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/phoneLoginView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/recycler_water2"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/guoJiaClick"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login_text_guoJia"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/text_name"/>
+
+            <TextView
+                android:id="@+id/guoJiaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_text_test_chines"
+                android:textSize="16sp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/colorAccent"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="@string/register_text_phone"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="@color/text_name"/>
+
+            <com.qb.wxui.widget.EdText
+                android:id="@+id/phoneEdText"
+                android:hint="@string/login_hint_phone"
+                android:paddingStart="90dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp"
+                android:textColor="@color/text_name"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                android:outlineSpotShadowColor="@color/colorAccent"
+                android:shadowColor="@color/colorAccent"
+                android:textColorHighlight="@color/text_name"
+                android:textColorHint="@color/text_gray"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:maxLength="11"/>
+
+            <ImageView
+                android:id="@+id/phoneDelClick"
+                android:visibility="gone"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="10dp"
+                android:src="@mipmap/icon_x"
+                android:onClick="phoneDel"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login_text_password"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="@color/text_name"/>
+
+            <com.qb.wxui.widget.EdText
+                android:id="@+id/passwordEdText"
+                android:hint="@string/login_hint_password"
+                android:paddingStart="90dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp"
+                android:textColor="@color/text_name"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                android:outlineSpotShadowColor="@color/colorAccent"
+                android:shadowColor="@color/colorAccent"
+                android:textColorHighlight="@color/text_name"
+                android:textColorHint="@color/text_gray"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:maxLength="18"/>
+
+            <ImageView
+                android:id="@+id/passwordDelClick"
+                android:visibility="gone"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="10dp"
+                android:src="@mipmap/icon_x"
+                android:onClick="passwordDel"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chartNLoginView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login_text_chartN"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="@color/text_name"/>
+
+            <com.qb.wxui.widget.EdText
+                android:id="@+id/chartNEdText"
+                android:hint="@string/login_hint_chartN"
+                android:paddingStart="90dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp"
+                android:textColor="@color/text_name"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                android:outlineSpotShadowColor="@color/colorAccent"
+                android:shadowColor="@color/colorAccent"
+                android:textColorHighlight="@color/text_name"
+                android:textColorHint="@color/text_gray"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="18"/>
+
+            <ImageView
+                android:id="@+id/chartNDelClick"
+                android:visibility="gone"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="10dp"
+                android:src="@mipmap/icon_x"
+                android:onClick="chartNDel"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login_text_password"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="@color/text_name"/>
+
+            <com.qb.wxui.widget.EdText
+                android:id="@+id/password2EdText"
+                android:hint="@string/login_hint_password"
+                android:paddingStart="90dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp"
+                android:textColor="@color/text_name"
+                android:outlineAmbientShadowColor="@color/colorAccent"
+                android:outlineSpotShadowColor="@color/colorAccent"
+                android:shadowColor="@color/colorAccent"
+                android:textColorHighlight="@color/text_name"
+                android:textColorHint="@color/text_gray"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:maxLength="16"/>
+
+            <ImageView
+                android:id="@+id/password2DelClick"
+                android:visibility="gone"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="10dp"
+                android:src="@mipmap/icon_x"
+                android:onClick="password2xDel"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/checkedClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button_chartN"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:layout_marginStart="5dp"
+        android:onClick="checkLoginType"
+        android:textColor="@color/text_link"/>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_bg_admin"
+        android:text="@string/login_button_login"
+        android:textColor="@color/white"
+        android:onClick="login"
+        android:textSize="18sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/login_text_zhaoHui"
+            android:textColor="@color/text_link"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:background="@color/text_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/login_text_anQuan"
+            android:textColor="@color/text_link"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:background="@color/text_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/login_text_all"
+            android:textColor="@color/text_link"
+            android:textSize="14sp"
+            android:onClick="evenMore"/>
+
+    </LinearLayout>
+
+</LinearLayout>

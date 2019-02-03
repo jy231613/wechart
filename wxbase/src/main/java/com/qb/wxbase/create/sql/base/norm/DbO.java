@@ -20,7 +20,7 @@ public interface DbO<T> {
      * @param id     主键id
      * @return 结果对象
      */
-    T select(Class<T> tClass, int id);
+    List<T> select(Class<T> tClass, int id);
 
     /**
      * 根据条件获取对象

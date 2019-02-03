@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!--<Ip>47.110.77.160</Ip>-->
+    <Ip>140.143.182.111</Ip>
+    <Port>12345</Port>
+    <OpenCache>true</OpenCache>
+</config>

@@ -5,11 +5,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.qb.wechat.R;
+import com.qb.wechat.aax.UserSelf;
 import com.qb.wechat.ui.fragment.MyShootVideoFragment;
 import com.qb.wechat.ui.fragment.MyUserInfoFragment;
 import com.qb.wxbase.adapter.FragAdapter;
 import com.qb.wxbase.app.BaseFragment;
 import com.qb.wxbase.create.foxbind.Find;
+import com.qb.wxbase.create.speasy.base.SpGet;
 import com.qb.wxbase.listener.ViewPageChangeListener;
 import com.qb.wxbase.widget.viewpage.VerticalViewPager;
 import com.qb.wxbase.widget.viewpage.ViewPageUtil;
@@ -64,7 +66,7 @@ public class MyFragment extends BaseFragment {
         verticalViewPager.setAdapter(adapter);
         verticalViewPager.addOnPageChangeListener(new ViewPageChangeListener(this::selectPasge));
         selectPasge(1);//初始化位置
-        ViewPageUtil.setViewPageZoom(verticalViewPager,500);
+        ViewPageUtil.setViewPageZoom(verticalViewPager,200);
 
         //设置子页面监听
         myUserInfoFragment.setOnDownView(() -> {

@@ -6,9 +6,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qb.wechat.R;
+import com.qb.wechat.aax.UserSelf;
+import com.qb.wechat.ui.activity.UserInfoActivity;
 import com.qb.wxbase.app.BaseFragment;
+import com.qb.wxbase.app.FoxBaseManagement;
 import com.qb.wxbase.create.foxbind.Find;
+import com.qb.wxbase.create.speasy.base.SpGet;
 import com.qb.wxbase.listener.OnNotRepetitionClickListener;
+import com.qb.wxbase.util.easyutil.GlideUtils;
 import com.qb.wxui.widget.CircularBeadImageView;
 
 /**
@@ -22,32 +27,24 @@ import com.qb.wxui.widget.CircularBeadImageView;
  * ================================================
  */
 public class MyUserInfoFragment extends BaseFragment {
-    @Find(R.id.addClick)
-    private ImageView addClick;
-    @Find(R.id.toPiLyClick)
-    private TextView toPiLyClick;
-    @Find(R.id.userNameText)
-    private TextView userNameText;
-    @Find(R.id.nextMsgText)
-    private TextView nextMsgText;
-    @Find(R.id.userInfoLy)
-    private View userInfoLy;
-    @Find(R.id.userInfoTopLy)
-    private LinearLayout userInfoTopLy;
-    @Find(R.id.zhufuClick)
-    private LinearLayout zhufuClick;
-    @Find(R.id.shoucangClick)
-    private LinearLayout shoucangClick;
-    @Find(R.id.xiangceClick)
-    private LinearLayout xiangceClick;
-    @Find(R.id.kabaoClick)
-    private LinearLayout kabaoClick;
-    @Find(R.id.biaoqingClick)
-    private LinearLayout biaoqingClick;
-    @Find(R.id.shezhiClick)
-    private LinearLayout shezhiClick;
+    @Find(R.id.addClick)ImageView addClick;
+    @Find(R.id.circularImageView)CircularBeadImageView circularImageView;
+    @Find(R.id.toPiLyClick)TextView toPiLyClick;
+    @Find(R.id.userNameText)TextView userNameText;
+    @Find(R.id.nextMsgText)TextView nextMsgText;
+    @Find(R.id.userInfoLy)View userInfoLy;
+    @Find(R.id.userInfoTopLy)LinearLayout userInfoTopLy;
+    @Find(R.id.zhufuClick)LinearLayout zhufuClick;
+    @Find(R.id.shoucangClick)LinearLayout shoucangClick;
+    @Find(R.id.xiangceClick)LinearLayout xiangceClick;
+    @Find(R.id.kabaoClick)LinearLayout kabaoClick;
+    @Find(R.id.biaoqingClick)LinearLayout biaoqingClick;
+    @Find(R.id.shezhiClick)LinearLayout shezhiClick;
 
     private OnDownView onDownView;
+
+    @SpGet
+    private UserSelf userSelf;
 
     @Override
     protected int gainViewRes() {
@@ -56,8 +53,10 @@ public class MyUserInfoFragment extends BaseFragment {
 
     @Override
     protected View create(View view) {
+        //设置数据
+        refreshUserInfo(userSelf);
 
-
+        //设置监听
         toPiLyClick.setOnClickListener(new OnNotRepetitionClickListener(0) {
             @Override
             public void onAfterClick(View v) {
@@ -65,6 +64,19 @@ public class MyUserInfoFragment extends BaseFragment {
             }
         });
         return view;
+    }
+
+    /**
+     * 刷新当前页信息
+     * @param self 信息对象
+     */
+    public void refreshUserInfo(UserSelf self){
+        if (self==null)return;
+        //设置头像
+        if (self.getUserpic().equals(""))circularImageView.setImageResource(R.mipmap.default_nor_avatar);
+        else GlideUtils.load(getContext(),self.getUserpic(),circularImageView);
+        userNameText.setText(self.getUsername());
+        nextMsgText.setText(getResources().getString(R.string.my_info_text_chartN).replace("%d",self.getChartn()));
     }
 
     public MyUserInfoFragment.OnDownView getOnDownView() {

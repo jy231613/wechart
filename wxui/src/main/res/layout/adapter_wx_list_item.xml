@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:id="@+id/bg"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/recycler_water3"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/centerText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text=""
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="#656565"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:textSize="16sp"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        android:background="#999"/>
+</LinearLayout>

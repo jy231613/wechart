@@ -23,6 +23,8 @@ public class UserMsgDb {
     @Param
     public int userId;//用户id
     @Param
+    public String myId;//自身id
+    @Param
     public String msg;//用户消息
     @Param
     public int msgType;//消息类型,0文本,1图片
@@ -32,6 +34,14 @@ public class UserMsgDb {
     public int inSelect;//0未查看,1已查看
     @Param
     public String msgDate;//消息发送时间
+
+    public String getMyId() {
+        return myId;
+    }
+
+    public void setMyId(String myId) {
+        this.myId = myId;
+    }
 
     public String getMsgDate() {
         return msgDate;

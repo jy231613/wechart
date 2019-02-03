@@ -1,9 +1,14 @@
 package com.qb.wechat.ui.fragment.main;
 
 import android.app.Dialog;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +16,7 @@ import com.qb.wechat.R;
 import com.qb.wechat.aax.UserMsgListDb;
 import com.qb.wechat.adapter.MsgAdapter;
 import com.qb.wechat.ui.activity.ImActivity;
+import com.qb.wechat.ui.activity.MainActivity;
 import com.qb.wechat.widget.MainTopBar;
 import com.qb.wxbase.app.BaseFragment;
 import com.qb.wxbase.app.FoxBaseManagement;
@@ -20,6 +26,8 @@ import com.qb.wxbase.create.foxbus.Improved.FxEventBean;
 import com.qb.wxbase.create.speasy.Sp;
 import com.qb.wxbase.create.sql.base.DbOperation;
 import com.qb.wxbase.create.sql.base.OperationFactory;
+import com.qb.wxbase.rxsql.RxSqlBinding;
+import com.qb.wxbase.rxsql.base.RxSqlSet;
 import com.qb.wxbase.util.baseutil.TimeUtil;
 import com.qb.wxui.dialog.WaChatDialog;
 import com.qb.wxui.dialog.util.MsgDialogClickListener;
@@ -50,7 +58,6 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener,
         return R.layout.fragment_weng2;
     }
 
-    List<UserMsgListDb> userMsgListDbs;
     DbOperation<UserMsgListDb> dbDbOperation;
 
     @Override
@@ -58,27 +65,30 @@ public class Weng2Fragment extends BaseFragment implements View.OnClickListener,
         gridLayoutManager = new GridLayoutManager(getContext(),1);
         recyclerLy.setLayoutManager(gridLayoutManager);
 
-        dbDbOperation = new DbOperation<>(OperationFactory.getFactory().getOperation(UserMsgListDb.class));
-//        //添加一些数据
-//        for (int i = 0; i < 5; i++) {
+
+//        List<UserMsgListDb> listDbs = new ArrayList<>();
+//        for (int i = 0; i < 4; i++) {
 //            UserMsgListDb userMsgListDb = new UserMsgListDb();
-//            userMsgListDb.setForbidden(0);
-//            userMsgListDb.setUserName("hello::"+i);
-//            userMsgListDb.setLastDate(TimeUtil.getTime());
-//            dbDbOperation.insert(userMsgListDb);
+//            userMsgListDb.setUserName("userName"+i);
+//            listDbs.add(userMsgListDb);
 //        }
-        userMsgListDbs = dbDbOperation.select(UserMsgListDb.class,"1=1",new String[]{});
+//        RxSqlBinding.insert(listDbs);
+        return view;
+    }
+
+    public void refreshList(List<UserMsgListDb> userMsgListDbs){
+        this.userMsgListDbs = userMsgListDbs;
         adapter = new MsgAdapter(getContext());
         adapter.setAdapterData(userMsgListDbs);
         adapter.setClickListener(this);
         adapter.setLongClickListener(this);
         recyclerLy.setAdapter(adapter);
-        return view;
     }
+    List<UserMsgListDb> userMsgListDbs;
 
     @Override
     public void onClick(View v) {
-        FxEventBean<UserMsgListDb> bean = new FxEventBean<>("ImUserId",userMsgListDbs.get(adapter.getPositionFromTag(v)));
+        FxEventBean<UserMsgListDb> bean = new FxEventBean<>("Weng2Fragment_ImUserBean",userMsgListDbs.get(adapter.getPositionFromTag(v)));
         FxBus.post(bean);
         FoxBaseManagement.getFoxManagement().beginActivity(ImActivity.class);
     }

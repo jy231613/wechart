@@ -2,15 +2,23 @@ package com.qb.wxui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qb.wxbase.util.uibase.DialogFor;
 import com.qb.wxui.R;
+import com.qb.wxui.dialog.adapter.WxListAdapter;
 import com.qb.wxui.dialog.util.Bind;
 import com.qb.wxui.dialog.util.DialogHelper;
 import com.qb.wxui.dialog.util.MsgDialogClickListener;
+import com.qb.wxui.dialog.util.RecyclerBean;
+import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * ================================================
@@ -135,6 +143,61 @@ public class WaChatDialog {
             contentTv.setText(content);
             yesBtnTv.setOnClickListener(view1 -> listener.doYes());
             noBtnTv.setOnClickListener(view12 -> listener.doNo());
+        });
+    }
+
+    //显示提示信息
+    private static Dialog dialog;
+    public static void showSystemAffirmDialog(Context context, String title, String content){
+        dialog = showAffirmDialogSystem(context, title, content, "确定", new MsgDialogClickListener() {
+            @Override
+            public void doYes() {
+                dialog.dismiss();
+            }
+            @Override
+            public void doNo() {
+            }
+        });
+    }
+
+    /**
+     * 显示提示对话框
+     * @param context 上下文关系
+     */
+    private static Dialog showAffirmDialogSystem(Context context, String title, String content,String yesBtn, MsgDialogClickListener listener) {
+        return DialogHelper.showRadioDialog(context, R.layout.wx_dialog_affirm2_layout, R.style.wx_dialog_affirm, view -> {
+            TextView titleTv = view.findViewById(R.id.title);
+            TextView contentTv = view.findViewById(R.id.content);
+            TextView yesBtnTv = view.findViewById(R.id.yesBtn);
+            if (title == null) {
+                titleTv.setVisibility(View.GONE);
+            } else {
+                titleTv.setVisibility(View.VISIBLE);
+                titleTv.setText(title);
+            }
+            if (yesBtn!=null)yesBtnTv.setText(yesBtn);
+            contentTv.setText(content);
+            yesBtnTv.setOnClickListener(view1 -> listener.doYes());
+        });
+    }
+
+    //列表
+    public static Dialog showListDialog(Context context,RecyclerBean... recyclerBeans) {
+        return DialogHelper.showDownDialog(context, R.layout.wx_dialog_list_layout, R.style.wx_dialog_list, view -> {
+            RecyclerView recyclerLy = view.findViewById(R.id.recyclerLy);
+            WxListAdapter wxListAdapter = new WxListAdapter(Arrays.asList(recyclerBeans),context);
+            recyclerLy.setLayoutManager(new LinearLayoutManager(context));
+            recyclerLy.setAdapter(wxListAdapter);
+        });
+    }
+
+    //等待框
+    public static Dialog showLoadingDialog(Context context,String... title) {
+        return DialogHelper.showRadioDialog3(context, R.layout.wx_dialog_loading_layout, R.style.wx_dialog_list, view -> {
+            AVLoadingIndicatorView avLoadingView = view.findViewById(R.id.imageRes);
+            TextView tipTextView = view.findViewById(R.id.tipTxt);
+            tipTextView.setText(title == null ? "加载中..." : title[0]);
+            avLoadingView.setIndicator("BallClipRotateIndicator");
         });
     }
 

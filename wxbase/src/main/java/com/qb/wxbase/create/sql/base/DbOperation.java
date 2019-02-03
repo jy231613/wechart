@@ -60,10 +60,10 @@ public final class DbOperation<T> implements DbO<T> {
     }
 
     @Override
-    public T select(Class<T> tClass, int id) {
+    public List<T> select(Class<T> tClass, int id) {
         List<T> ts = select(tClass, " id = ?", new String[]{String.valueOf(id)});
         if (ts != null && ts.size() > 0) {
-            return ts.get(0);
+            return ts;
         } else return null;
     }
 
@@ -100,6 +100,7 @@ public final class DbOperation<T> implements DbO<T> {
 
     @Override
     public List<T> select(Class<T> tClass, String[] params, String where, String[] values) {
+
         Table table = tClass.getAnnotation(Table.class);
         if (table != null) {
             //结果集
@@ -176,7 +177,7 @@ public final class DbOperation<T> implements DbO<T> {
                 }
                 int number;
                 //获取数据库对象
-                SQLiteDatabase db = operation.getReadableDatabase();
+                SQLiteDatabase db = operation.getWritableDatabase();
                 if (values == null) {
                     number = db.update(table.value().equals("") ? t.getClass().getSimpleName() : table.value(), val, where, new String[]{systemIdValue});
                 } else {
@@ -260,7 +261,7 @@ public final class DbOperation<T> implements DbO<T> {
             //获取表名
             String tableName = table.value().equals("") ? t.getClass().getSimpleName() : table.value();
             //获取数据库对象
-            SQLiteDatabase db = operation.getReadableDatabase();
+            SQLiteDatabase db = operation.getWritableDatabase();
             long number = db.insert(tableName, paramsStr.substring(0, paramsStr.length() - 1), values);
             if (number > 0) isSuccess = true;
         }
@@ -280,7 +281,7 @@ public final class DbOperation<T> implements DbO<T> {
         Table table = t.getAnnotation(Table.class);
         if (table != null) {
             //获取数据库对象
-            SQLiteDatabase db = operation.getReadableDatabase();
+            SQLiteDatabase db = operation.getWritableDatabase();
             int number = db.delete(table.value().equals("") ? t.getSimpleName() : table.value(), where, values);
             return number > 0;
         }else{

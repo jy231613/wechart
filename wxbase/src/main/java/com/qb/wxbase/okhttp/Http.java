@@ -37,7 +37,6 @@ import okhttp3.Response;
  */
 public class Http {
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private static final MediaType FORM = MediaType.get("application/x-www-form-urlencoded; charset=utf-8");
 
     /**
      * Get请求
@@ -50,7 +49,6 @@ public class Http {
                 .url(url)
                 .build();
         Call call = client.newCall(request);
-        //post主线程
         httpCallBack.onStart();
         call.enqueue(new Callback() {
             @Override

@@ -23,6 +23,7 @@
         android:layout_height="65dp"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="toUserInfo"
         android:background="@drawable/recycler_water" />
 
     <LinearLayout
@@ -31,6 +32,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="-100dp"
         android:orientation="horizontal"
+        android:onClick="toUserInfo"
         android:paddingEnd="15dp"
         android:paddingStart="15dp">
 
@@ -89,7 +91,7 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="微信号:xxxxxx"
+                    android:text="@string/my_info_text_chartN"
                     android:textColor="@color/text_gray"
                     android:textSize="16sp" />
 
