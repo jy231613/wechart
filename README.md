@@ -1,37 +1,22 @@
-# wechat
+# wechart
 
 #### 介绍
 仿微信安卓端源码
 
 #### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
+大部分都是我自己写的,边摸索着边写;
+网络请求用的okhttp,也没用啥架构,想着写着写着就能理解到一些东西;
+封装数据库的时候用了RxJava;
+数据库还没有封装完,计划封装成那种根据入口参数自动去访问网络请求,然后自动存储并且回显到前段页面的那种响应式数据库;
+目前网络请求没有写,就是保存加回显写了,但是写的不是很满意,跟我预想的不太一样;
+聊天部分不打算用三方的,打算自己构建聊天socket,还包括一些服务器与客户端通过socket通道进行的推送和通信,一些频繁请求直接走socket,不再额外添加请求;
 
 #### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+1. 后台代码wechartApi;
+2. 目前才刚开始写,慢慢的增加东西,可能写着写着就会改许多东西;
+3. 有哪些地方不好的请指导我,谢谢;
 
 
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 作者
+贾恒飞
